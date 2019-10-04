@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Getting Started on Scillus</title>
+    <link>/getting-started/</link>
+    <description>Recent content in Getting Started on Scillus</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="/getting-started/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installation</title>
+      <link>/getting-started/installation/</link>
+      <pubDate>Thu, 03 Oct 2019 15:26:15 +0000</pubDate>
+      
+      <guid>/getting-started/installation/</guid>
+      <description>Please use the following code to install and load the package:
+install.packages(&amp;#34;devtools&amp;#34;) library(devtools) install_github(&amp;#34;xmc811/Scillus&amp;#34;, ref = &amp;#34;development&amp;#34;) library(Scillus)</description>
+    </item>
+    
+    <item>
+      <title>Configuration</title>
+      <link>/getting-started/configuration/</link>
+      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      
+      <guid>/getting-started/configuration/</guid>
+      <description>You may specify options in config.toml (or config.yaml/config.json) of your site to make use of this theme’s features.
+For an example of config.toml, see config.toml in exampleSite.
+Params # Souce Code repository section description = &amp;quot;put your description&amp;quot; github_repository = &amp;quot;https://github.com/thingsym/hugo-theme-techdoc&amp;quot; version = &amp;quot;0.2.2&amp;quot; # Documentation repository section # documentation repository (set edit link to documentation repository) github_doc_repository = &amp;quot;https://github.com/thingsym/hugo-theme-techdoc&amp;quot; # Analytic section google_analytics_id = &amp;quot;&amp;quot; # Your Google Analytics tracking id tag_manager_container_id = &amp;quot;&amp;quot; # Your Google Tag Manager container id google_site_verification = &amp;quot;&amp;quot; # Your Google Site Verification # Theme settings section dateformat = &amp;quot;&amp;quot; # default &amp;quot;2 Jan 2006&amp;quot; # path name excluded from document menu menu_exclusion = [&amp;quot;archives&amp;quot;, &amp;quot;blog&amp;quot;, &amp;quot;entry&amp;quot;, &amp;quot;post&amp;quot;, &amp;quot;posts&amp;quot;]  description The document summary</description>
+    </item>
+    
+  </channel>
+</rss>
