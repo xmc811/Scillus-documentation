@@ -1,90 +1,29 @@
 ---
-date: "2017-10-17T15:26:15Z"
-draft: false
-title: Configuration
+lastmod: "2019-12-21T12:49:01Z"
+publishdate: "2019-12-21"
+draft: no
+title: Initial Setup
 weight: 20
 ---
 
-You may specify options in config.toml (or config.yaml/config.json) of your site to make use of this theme’s features.
+### Sample Data
 
-For an example of `config.toml`, see [config.toml](https://github.com/thingsym/hugo-theme-techdoc/blob/master/exampleSite/config.toml) in exampleSite.
+The sample dataset used in the vignettes is from publication by [Gaydosik AM *et al*](https://www.ncbi.nlm.nih.gov/pubmed/31010835). It can be downloaded from [here](https://github.com/xmc811/Scillus/blob/development/test/GSE128531.tar.gz). Once downloaded, the file can be unzipped by `tar xvzf GSE128531.tar.gz`. There is no need to further unzip the individual `.csv.gz` files. To reduce computation time, the dataset only includes 6 samples and 300 cells for each sample. The complete raw data are available at [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128531).
 
-## Params
+The sample data are in `.csv.gz` format, but Scillus also works for 10xGenomics cellranger output format like below:
 
-    # Souce Code repository section
-    description = "put your description"
-    github_repository = "https://github.com/thingsym/hugo-theme-techdoc"
-    version = "0.2.2"
-
-    # Documentation repository section
-    # documentation repository (set edit link to documentation repository)
-    github_doc_repository = "https://github.com/thingsym/hugo-theme-techdoc"
-
-    # Analytic section
-    google_analytics_id = "" # Your Google Analytics tracking id
-    tag_manager_container_id = "" # Your Google Tag Manager container id
-    google_site_verification = "" # Your Google Site Verification
-
-    # Theme settings section
-    dateformat = "" # default "2 Jan 2006"
-
-    # path name excluded from document menu
-    menu_exclusion = ["archives", "blog", "entry", "post", "posts"]
-
-#### `description`
-
-The document summary
-
-default: `put your description`
-
-#### `github_repository`
-
-URL of souce code repository
-
-default: `https://github.com/thingsym/hugo-theme-techdoc`
-
-#### `version`
-
-The version of souce code
-
-default: `0.2.2`
-
-#### `github_doc_repository`
-
-URL of documentation repository for editting
-
-default: `https://github.com/thingsym/hugo-theme-techdoc`
-
-#### `google_analytics_id`
-
-ID of Google Analytics
-
-default: `""`
-
-Container ID of Google Tag Manager
-
-#### `tag_manager_container_id`
-
-default: `""`
-
-#### `google_site_verification`
-
-Content value in meta tag `google-site-verification` for Google Search Console
-
-```
-<meta name="google-site-verification" content="e7-viorjjfiihHIoowh8KLiowhbs" />
+```console
+$ tree filtered_feature_bc_matrix
+filtered_feature_bc_matrix
+├── barcodes.tsv.gz
+├── features.tsv.gz
+└── matrix.mtx.gz
 ```
 
-default: `""`
+### Metadata
 
-#### `dateformat`
+The sample sizes for each scRNA-seq project are almost always more than one. Hence, the loading and filtering functions of Scillus will generate and process a list of Seurat objects.
 
-default: `""` as `2 Jan 2006`
+### Palette setup
 
-#### `menu_exclusion`
-
-Path name excluded from documentation menu
-
-By default, we exclude commonly used folder names in blogs.
-
-default: `["archives", "blog", "entry", "post", "posts"]`
+The plotting functions of Scillus will incorperate palette setup to ensure consistent coloring schemes for each variable in different types of plots.

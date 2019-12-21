@@ -1,8 +1,7 @@
 ---
-date: "2017-10-17T15:26:15Z"
 draft: false
-lastmod: "2018-12-08T15:26:15Z"
-publishdate: "2018-11-23T15:26:15Z"
+lastmod: "2019-12-21T14:10:46Z"
+publishdate: "2019-10-03"
 title: Vignettes
 weight: 9
 ---
