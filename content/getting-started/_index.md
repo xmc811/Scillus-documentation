@@ -1,15 +1,15 @@
 ---
-date: "2019-12-21"
+date: "2017-10-17T15:26:15Z"
 draft: false
-lastmod: "2019-12-21"
-publishdate: "2019-12-21"
-title: Index
+lastmod: "2018-12-08T15:26:15Z"
+publishdate: "2018-11-23T15:26:15Z"
+title: Getting Started
 weight: 9
 ---
 
 ## [Installation](./installation)
 
-How to download and install the Scillus package
+Download Hugo theme, configure, preview site ...
 
 ## [Configuration](./configuration)
 
