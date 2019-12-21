@@ -3,13 +3,13 @@ date: "2017-10-17T15:26:15Z"
 draft: false
 lastmod: "2018-12-08T15:26:15Z"
 publishdate: "2018-11-23T15:26:15Z"
-title: Getting Started
+title: Vignettes
 weight: 9
 ---
 
 ## [Installation](./installation)
 
-Download Hugo theme, configure, preview site ...
+How to download and install Scillus
 
 ## [Configuration](./configuration)
 

@@ -1,12 +1,13 @@
 ---
-date: "2019-10-03"
-lastmod: "2019-12-21T12:50:10Z"
-draft: false
-title: Installation
-weight: 10
-output: 
-  html_document: 
+title: "Installation"
+draft: no
+date: '2019-10-03'
+output:
+  html_document:
     self_contained: no
+  pdf_document: default
+lastmod: '2019-12-21T12:50:10Z'
+weight: 10
 ---
 
 Please use the following code to install and load the package:
