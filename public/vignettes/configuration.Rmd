@@ -1,0 +1,91 @@
+---
+lastmod: "2019-12-23T12:49:01Z"
+publishdate: "2019-12-21"
+draft: no
+title: Initial Setup
+weight: 20
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results="asis"}
+cat("
+<style>
+caption {
+      font-weight: bold;
+      font-size: 1.0em;
+}
+</style>
+")
+```
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results='asis'}
+library(tidyverse)
+library(magrittr)
+library(knitr)
+library(kableExtra)
+```
+
+## Sample Data
+
+The sample dataset used in the vignettes is from publication by [Gaydosik AM *et al*](https://www.ncbi.nlm.nih.gov/pubmed/31010835). It can be downloaded from [here](https://github.com/xmc811/Scillus/blob/development/test/GSE128531.tar.gz). Once downloaded, the file can be unzipped by `tar xvzf GSE128531.tar.gz`. There is no need to further unzip the individual `.csv.gz` files. To reduce computation time, the dataset only includes 6 samples and 300 cells for each sample. The complete raw data are available at [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128531).
+
+The sample data are in `.csv.gz` format, but Scillus also works for 10x Genomics cellranger output format like below:
+
+```console
+$ tree filtered_feature_bc_matrix
+filtered_feature_bc_matrix
+├── barcodes.tsv.gz
+├── features.tsv.gz
+└── matrix.mtx.gz
+```
+
+## Metadata
+
+Given the fact that the sample sizes for each scRNA-seq project are usually more than one, the loading and filtering functions of Scillus will generate and process a list of Seurat objects. A metadata dataframe should be provided to the loading function. The dataframe should have at least two columns: one named `sample`, and the other named `file` or `folder`, depending on the input data format. For the sample data, metadata can be constructed by:
+
+```R
+a <- list.files("your/path/to/sample/data/GSE128531_RAW", full.names = TRUE)
+m <- tibble::tibble(file = a, 
+                    sample = stringr::str_remove(basename(a), ".csv.gz"),
+                    group = rep(c("CTCL", "Normal"), each = 3))
+```
+```{r echo=FALSE, paged.print=TRUE, results='asis'}
+a <- list.files("~/Documents/projects/Scillus/test/GSE128531_RAW", full.names = TRUE)
+m <- tibble::tibble(file = a, 
+                    sample = stringr::str_remove(basename(a), ".csv.gz"),
+                    group = rep(c("CTCL", "Normal"), each = 3))
+kable(m, caption = "Metadata of sample data") %>%
+        kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                      full_width = FALSE)
+```
+
+Any additional metadata at the sample level (e.g. group, sex, age, treatment) can be appended to the dataframe, and they will be included in the Seurat object during the loading. Here, the `group` column is added for demonstration purpose. 
+
+
+For 10x Genomics cellranger output, the metadata should have one column named `folder` instead of `file` like Table 2, and there should be 3 files in each folder as the tree structure shown above.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis'}
+m1 <- m %>%
+        mutate(folder = stringr::str_remove(file, ".csv.gz"), .before = 1) %>%
+        select(folder, sample, group)
+
+kable(m1, caption = "Metadata for 10x Genomics cellranger output") %>%
+        kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                      full_width = FALSE)
+```
+
+
+
+## Palette setup
+
+The plotting functions of Scillus will incorperate palette setup to ensure consistent coloring schemes for each variable in different types of plots.
+
+```R
+pal <- tibble::tibble(var = c("sample", "group","seurat_clusters"),
+                      pal = c("Set2","Set1","Paired"))
+```
+```{r echo=FALSE, paged.print=TRUE, results='asis'}
+pal <- tibble::tibble(var = c("sample", "group","seurat_clusters"),
+                      pal = c("Set2","Set1","Paired"))
+kable(pal, caption = "Palette setup") %>%
+        kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                      full_width = FALSE)
+```

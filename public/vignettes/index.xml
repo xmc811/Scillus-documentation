@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Scillus</title>
-    <link>/</link>
-    <description>Recent content on Scillus</description>
+    <title>Vignettes on Scillus</title>
+    <link>/vignettes/</link>
+    <description>Recent content in Vignettes on Scillus</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 03 Oct 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/vignettes/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -30,16 +30,6 @@ If you would like to check the source code on GitHub, don&#39;t forget switching
       
       <guid>/vignettes/configuration/</guid>
       <description>caption { font-weight: bold; font-size: 1.0em; }  Sample Data The sample dataset used in the vignettes is from publication by Gaydosik AM et al. It can be downloaded from here. Once downloaded, the file can be unzipped by tar xvzf GSE128531.tar.gz. There is no need to further unzip the individual .csv.gz files. To reduce computation time, the dataset only includes 6 samples and 300 cells for each sample.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>/about/</link>
-      <pubDate>Thu, 03 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/about/</guid>
-      <description>Scillus is an R wrapper package of Seurat for enhanced processing and visualization of single-cell RNA-seq data.
-To report bugs and suggest new features, please file issues on GitHub repository. Contributions by pull requests are welcomed.</description>
     </item>
     
   </channel>

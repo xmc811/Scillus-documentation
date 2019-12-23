@@ -3,11 +3,11 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>About - Scillus</title>
+<title>Installation - Scillus</title>
 <meta name="description" content="">
 <meta name="generator" content="Hugo 0.61.0" />
 <link href="/index.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="/about/">
+<link rel="canonical" href="/vignettes/installation/">
 <link rel="stylesheet" href="/css/theme.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="/css/chroma.min.css">
@@ -30,15 +30,23 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>About</h1><p>Scillus is an R wrapper package of <a href="https://github.com/satijalab/seurat">Seurat</a> for enhanced processing and visualization of single-cell RNA-seq data.</p>
-<p>To report bugs and suggest new features, please file issues on <a href="https://github.com/xmc811/Scillus">GitHub</a> repository. Contributions by pull requests are welcomed.</p>
+<main><h1>Installation</h1><p>Scillus is still undergoing active development. Please use the following code to install the development branch on GitHub:</p>
+<div class="highlight"><pre class="chroma"><code class="language-R" data-lang="R"><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#34;</span><span class="s">devtools&#34;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">devtools</span><span class="p">)</span>
+
+<span class="nf">install_github</span><span class="p">(</span><span class="s">&#34;</span><span class="s">xmc811/Scillus&#34;</span><span class="p">,</span> <span class="n">ref</span> <span class="o">=</span> <span class="s">&#34;</span><span class="s">development&#34;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">Scillus</span><span class="p">)</span>
+</code></pre></div><p>Note:</p>
+<p>Errors may occur during the installation of dependency packages. Usually it can be solved by re-installing the relevant packages.</p>
+<p>If you would like to check the source code on GitHub, don't forget switching to the development branch.</p>
 <div class="edit-meta">
 Last updated on 21 Dec 2019
 
 
 <br>
 Published on 3 Oct 2019
-<br><a href="https://github.com/xmc811/Scillus-documentation/edit/master/content/about.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-next" href="/vignettes/" title="Vignettes">Next - Vignettes <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<br><a href="https://github.com/xmc811/Scillus-documentation/edit/master/content/vignettes/installation.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/vignettes/" title="Vignettes"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Vignettes</a>
+<a class="nav nav-next" href="/vignettes/configuration/" title="Initial Setup">Next - Initial Setup <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>.</p>
 </footer>
 </main><div class="sidebar">
@@ -46,9 +54,9 @@ Published on 3 Oct 2019
 <ul>
 <li class=""><a href="/">Home</a></li>
 
-<li class=""><a href="/vignettes/">Vignettes</a>
-<ul class="">
-<li class=""><a href="/vignettes/installation/">Installation</a></li>
+<li class="parent"><a href="/vignettes/">Vignettes</a>
+<ul class="sub-menu">
+<li class="active"><a href="/vignettes/installation/">Installation</a></li>
 <li class=""><a href="/vignettes/configuration/">Initial Setup</a></li>
 </ul>
   

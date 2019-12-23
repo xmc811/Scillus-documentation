@@ -3,23 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/getting-started/</loc>
-    <lastmod>2018-12-08T15:26:15+00:00</lastmod>
+    <loc>/vignettes/</loc>
+    <lastmod>2019-12-21T14:10:46+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/getting-started/installation/</loc>
+    <loc>/vignettes/installation/</loc>
     <lastmod>2019-12-21T12:50:10+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/chapter1/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/getting-started/configuration/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>/vignettes/configuration/</loc>
+    <lastmod>2019-12-23T12:49:01+00:00</lastmod>
   </url>
   
   <url>
@@ -29,27 +24,7 @@
   
   <url>
     <loc>/about/</loc>
-    <lastmod>2019-12-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/chapter1/1/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/chapter1/2/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/chapter1/3/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/chapter1/4/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-12-21T12:49:01+00:00</lastmod>
   </url>
   
   <url>
