@@ -34,12 +34,6 @@
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 
 
-<style>
-caption {
-      font-weight: bold;
-      font-size: 1.0em;
-}
-</style>
 <div id="sample-data" class="section level2">
 <h2>Sample Data</h2>
 <p>The sample dataset used in the vignettes is from publication by <a href="https://www.ncbi.nlm.nih.gov/pubmed/31010835">Gaydosik AM <em>et al</em></a>. It can be downloaded from <a href="https://github.com/xmc811/Scillus/blob/development/test/GSE128531.tar.gz">here</a>. Once downloaded, the file can be unzipped by <code>tar xvzf GSE128531.tar.gz</code>. There is no need to further unzip the individual <code>.csv.gz</code> files. To reduce computation time, the dataset only includes 6 samples and 300 cells for each sample. The complete raw data are available at <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128531">GEO</a>.</p>
@@ -57,9 +51,9 @@ filtered_feature_bc_matrix
 m &lt;- tibble::tibble(file = a, 
                     sample = stringr::str_remove(basename(a), &quot;.csv.gz&quot;),
                     group = rep(c(&quot;CTCL&quot;, &quot;Normal&quot;), each = 3))</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-3">Table 1: </span>Metadata of sample data
+<span id="tab:unnamed-chunk-2">Table 1: </span>Metadata of sample data
 </caption>
 <thead>
 <tr>
@@ -145,9 +139,9 @@ Normal
 </table>
 <p>Any additional metadata at the sample level (e.g. group, sex, age, treatment) can be appended to the dataframe, and they will be included in the Seurat object during the loading. Here, the <code>group</code> column is added for demonstration purpose.</p>
 <p>For 10x Genomics cellranger output, the metadata should have one column named <code>folder</code> instead of <code>file</code> like Table 2, and there should be 3 files in each folder as the tree structure shown above.</p>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-4">Table 2: </span>Metadata for 10x Genomics cellranger output
+<span id="tab:unnamed-chunk-3">Table 2: </span>Metadata for 10x Genomics cellranger output
 </caption>
 <thead>
 <tr>
@@ -237,9 +231,9 @@ Normal
 <p>The plotting functions of Scillus will incorperate palette setup to ensure consistent coloring schemes for each variable in different types of plots.</p>
 <pre class="r"><code>pal &lt;- tibble::tibble(var = c(&quot;sample&quot;, &quot;group&quot;,&quot;seurat_clusters&quot;),
                       pal = c(&quot;Set2&quot;,&quot;Set1&quot;,&quot;Paired&quot;))</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-5">Table 3: </span>Palette setup
+<span id="tab:unnamed-chunk-4">Table 3: </span>Palette setup
 </caption>
 <thead>
 <tr>

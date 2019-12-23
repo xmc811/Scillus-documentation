@@ -23,14 +23,5 @@ Errors may occur during the installation of dependency packages. Usually it can 
 If you would like to check the source code on GitHub, don&#39;t forget switching to the development branch.</description>
     </item>
     
-    <item>
-      <title>Initial Setup</title>
-      <link>/vignettes/configuration/</link>
-      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/vignettes/configuration/</guid>
-      <description>caption { font-weight: bold; font-size: 1.0em; }  Sample Data The sample dataset used in the vignettes is from publication by Gaydosik AM et al. It can be downloaded from here. Once downloaded, the file can be unzipped by tar xvzf GSE128531.tar.gz. There is no need to further unzip the individual .csv.gz files. To reduce computation time, the dataset only includes 6 samples and 300 cells for each sample.</description>
-    </item>
-    
   </channel>
 </rss>
