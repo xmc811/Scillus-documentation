@@ -1,9 +1,7 @@
 ---
-lastmod: "2019-12-23T12:49:01Z"
-publishdate: "2019-12-21"
 draft: no
 title: Initial Setup
-weight: 20
+date: '2019-12-23'
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results='asis'}
