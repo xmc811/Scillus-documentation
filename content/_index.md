@@ -2,7 +2,7 @@
 title: Home
 ---
 
-[<img src="Scillus.svg" style="max-width:15%;min-width:40px;float:right;" alt="Scillus" />](https://github.com/xmc811/Scillus)
+[<img src="https://simpleicons.org/icons/github.svg" style="max-width:15%;min-width:40px;float:right;" alt="Scillus" />](https://github.com/xmc811/Scillus)
 
 # Scillus
 
