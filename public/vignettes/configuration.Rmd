@@ -4,7 +4,6 @@ publishdate: "2019-12-21"
 draft: no
 title: Initial Setup
 weight: 20
-output: html_document
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results='asis'}

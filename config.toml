@@ -1,49 +1,16 @@
-baseURL = "/"
-
+baseurl = "/"
 languageCode = "en-us"
-DefaultContentLanguage = "en"
 title = "Scillus"
-theme = "hugo-theme-techdoc"
+theme = "hugo-xmin"
+googleAnalytics = ""
+disqusShortname = ""
+ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
+preserveTaxonomyNames = true
+footnotereturnlinkcontents = "↩"
 
-hasCJKLanguage = true
-metaDataFormat = "yaml"
+[permalinks]
+    post = "/post/:year/:month/:day/:slug/"
 
-pygmentsUseClasses = true
-pygmentsCodefences = true
-
-defaultContentLanguage = "en"
-defaultContentLanguageInSubdir= false
-enableMissingTranslationPlaceholders = false
-
-disableLanguages = ["no"]
-
-[Params]
-
-    # Souce Code repository section
-    description = ""
-    github_repository = "https://github.com/xmc811/Scillus"
-    version = "0.2"
-    lang = "en-us"
-
-    # Documentation repository section
-    # documentation repository (set edit link to documentation repository)
-    github_doc_repository = "https://github.com/xmc811/Scillus-documentation"
-
-    # Analytic section
-    google_analytics_id = "" # Your Google Analytics tracking id
-    tag_manager_container_id = "" # Your Google Tag Manager container id
-    google_site_verification = "" # Your Google Site Verification for Search Console
-
-    # Theme settings section
-    dateformat = "" # default "2 Jan 2006"
-    # See the format reference https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference
-
-    # path name excluded from documentation menu
-    menu_exclusion = ["archives", "blog", "entry", "post", "posts"]
-
-
-# Global menu section
-[[menu.main]]
-    name = "Home"
-    url = "/"
-    weight = 1
+[params]
+    description = "A minimal example of building Rmd files under the static/ directory of a website based on blogdown and Hugo."
+    footer = "&copy; [Mingchu Xu](https://github.com/xmc811) 2020 | [Github](https://github.com/xmc811/Scillus) "

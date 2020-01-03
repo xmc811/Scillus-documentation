@@ -1,37 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Scillus</title>
+    <title>Home on Scillus</title>
     <link>/</link>
-    <description>Recent content on Scillus</description>
+    <description>Recent content in Home on Scillus</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Oct 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Installation</title>
-      <link>/vignettes/installation/</link>
-      <pubDate>Thu, 03 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/vignettes/installation/</guid>
-      <description>Scillus is still undergoing active development. Please use the following code to install the development branch on GitHub:
-install.packages(&amp;#34;devtools&amp;#34;) library(devtools) install_github(&amp;#34;xmc811/Scillus&amp;#34;, ref = &amp;#34;development&amp;#34;) library(Scillus) Note:
-Errors may occur during the installation of dependency packages. Usually it can be solved by re-installing the relevant packages.
-If you would like to check the source code on GitHub, don&#39;t forget switching to the development branch.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>/about/</link>
-      <pubDate>Thu, 03 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/about/</guid>
-      <description>Scillus is an R wrapper package of Seurat for enhanced processing and visualization of single-cell RNA-seq data.
-To report bugs and suggest new features, please file issues on GitHub repository. Contributions by pull requests are welcomed.</description>
-    </item>
     
   </channel>
 </rss>
