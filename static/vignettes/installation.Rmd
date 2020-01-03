@@ -1,6 +1,7 @@
 ---
 draft: no
 title: Installation
+author: Mingchu Xu
 date: '2019-12-23'
 ---
 

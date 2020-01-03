@@ -1,6 +1,7 @@
 ---
 draft: no
 title: Initial Setup
+author: Mingchu Xu
 date: '2019-12-23'
 ---
 
