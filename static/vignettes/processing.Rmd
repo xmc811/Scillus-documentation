@@ -1,0 +1,56 @@
+---
+title: "Data Processing"
+author: "Mingchu Xu"
+date: 2020-01-06
+output: html_document
+---
+
+### Loading Raw Data
+
+To load scRNA-seq raw data:
+
+```{r echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', eval=FALSE}
+scRNA <- load_scfile(m)
+```
+
+Scillus will create `Seurat` object for each sample and automatically call `PercentageFeatureSet` function to calculate the mitochondrial gene percentage. The resulting `scRNA` is a list of multiple Seurat objects. Its length equals to number of rows of metadata `m`:
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+length(scRNA)
+```
+
+### Plotting QC Measures
+
+The QC Measures can be plotted by `plot_qc`. The resulting plot can be further customized (axis.title, theme, etc.) using ggplot grammer.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondria gene percentage in each sample", fig.height=3, fig.width=6}
+plot_qc(scRNA, metrics = "percent.mt")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of genes detected in each sample", fig.height=3, fig.width=6}
+plot_qc(scRNA, metrics = "nFeature_RNA")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of UMIs in each sample", fig.height=3, fig.width=6}
+plot_qc(scRNA, metrics = "nCount_RNA")
+```
+
+There are 3 optional arguments for `plot_qc`: `plot_type`, `group_by`, and `pal_setup`.
+
+The default value of `plot_type` is `"combined"`, meaning both box plot and violin plot are drawn. If only one of the two plots is preferred, it can be set as `"box"` or `"violin"`.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of UMIs in each sample (Box plot)", fig.height=3, fig.width=6}
+plot_qc(scRNA, metrics = "percent.mt", plot_type = "box")
+```
+
+The default value of `group_by` is `"sample"`, which corresponds to the `sample` column in the metadata `m`. Since additional metadata are included in the loading process, QC measures can also be plotted by those addtional factors, like `"group"` (which corresponds to `group` column in the metadata `m`).
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of UMIs in each group", fig.height=3, fig.width=4}
+plot_qc(scRNA, metrics = "percent.mt", group_by = "group")
+```
+
+The default value of `pal_setup` is `NULL`, and `plot_qc` will use `"Set2"` palette in `RColorBrewer` as default for plotting. If a palette setup table (See [Initial Setup](configuration.html), the last section) is passed to `pal_setup`, `plot_qc` will use the specified palette. Currently, only `RColorBrewer` palettes are supported.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of UMIs in each group", fig.height=3, fig.width=4}
+plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = pal)
+```

@@ -7,7 +7,7 @@ date: '2019-12-23'
 
 Scillus is still undergoing active development. Please use the following code to install the development branch on GitHub:
 
-```R
+```{r install, echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
 install.packages("devtools")
 library(devtools)
 

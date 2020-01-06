@@ -1,0 +1,26 @@
+---
+title: "processing"
+author: "Mingchu Xu"
+date: "1/6/2020"
+output: html_document
+---
+
+```{r load, echo=FALSE, message=FALSE, warning=FALSE}
+library(Scillus)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+Load scRNA-seq raw data:
+
+```{r echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+scRNA <- load_scfile(m)
+```
+
+`scRNA` is a list of multiple Seurat objects.
+
+```{r echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', eval=FALSE}
+length(scRNA)
+```
+

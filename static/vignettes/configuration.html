@@ -379,8 +379,8 @@ summary {
 </div>
 
 
-<div id="sample-data" class="section level2">
-<h2>Sample Data</h2>
+<div id="sample-data" class="section level3">
+<h3>Sample Data</h3>
 <p>The sample dataset used in the vignettes is from publication by <a href="https://www.ncbi.nlm.nih.gov/pubmed/31010835">Gaydosik AM <em>et al</em></a>. It can be downloaded from <a href="https://github.com/xmc811/Scillus/blob/development/test/GSE128531.tar.gz">here</a>. Once downloaded, the file can be unzipped by <code>tar xvzf GSE128531.tar.gz</code>. There is no need to further unzip the individual <code>.csv.gz</code> files. To reduce computation time, the dataset only includes 6 samples and 300 cells for each sample. The complete raw data are available at <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128531">GEO</a>.</p>
 <p>The sample data are in <code>.csv.gz</code> format, but Scillus also works for 10x Genomics cellranger output format like below:</p>
 <pre class="console"><code>$ tree filtered_feature_bc_matrix
@@ -389,8 +389,8 @@ filtered_feature_bc_matrix
 ├── features.tsv.gz
 └── matrix.mtx.gz</code></pre>
 </div>
-<div id="metadata" class="section level2">
-<h2>Metadata</h2>
+<div id="metadata" class="section level3">
+<h3>Metadata</h3>
 <p>Given the fact that the sample sizes for each scRNA-seq project are usually more than one, the loading and filtering functions of Scillus will generate and process a list of Seurat objects. A metadata dataframe should be provided to the loading function. The dataframe should have at least two columns: one named <code>sample</code>, and the other named <code>file</code> or <code>folder</code>, depending on the input data format. For the sample data, metadata can be constructed by:</p>
 <pre class="r"><code>a &lt;- list.files(&quot;your/path/to/sample/data/GSE128531_RAW&quot;, full.names = TRUE)
 m &lt;- tibble::tibble(file = a, 
@@ -398,7 +398,7 @@ m &lt;- tibble::tibble(file = a,
                     group = rep(c(&quot;CTCL&quot;, &quot;Normal&quot;), each = 3))</code></pre>
 <table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-Metadata of sample data
+Table 1. Metadata of sample data
 </caption>
 <thead>
 <tr>
@@ -486,7 +486,7 @@ Normal
 <p>For 10x Genomics cellranger output, the metadata should have one column named <code>folder</code> instead of <code>file</code> like Table 2, and there should be 3 files in each folder as the tree structure shown above.</p>
 <table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-Metadata for 10x Genomics cellranger output
+Table 2. Metadata for 10x Genomics cellranger output
 </caption>
 <thead>
 <tr>
@@ -571,14 +571,14 @@ Normal
 </tbody>
 </table>
 </div>
-<div id="palette-setup" class="section level2">
-<h2>Palette setup</h2>
+<div id="palette-setup" class="section level3">
+<h3>Palette setup</h3>
 <p>The plotting functions of Scillus will incorperate palette setup to ensure consistent coloring schemes for each variable in different types of plots.</p>
 <pre class="r"><code>pal &lt;- tibble::tibble(var = c(&quot;sample&quot;, &quot;group&quot;,&quot;seurat_clusters&quot;),
                       pal = c(&quot;Set2&quot;,&quot;Set1&quot;,&quot;Paired&quot;))</code></pre>
 <table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-Palette setup
+Table 3. Palette setup
 </caption>
 <thead>
 <tr>
