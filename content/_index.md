@@ -11,3 +11,4 @@ title: Home
 - [Installation of Scillus](vignettes/installation.html)
 - [Preparation of configuration files](vignettes/configuration.html)
 - [Processing of raw data](vignettes/processing.html)
+- [Plotting](vignettes/plotting.html)
