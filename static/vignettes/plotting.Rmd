@@ -31,4 +31,6 @@ Similar to `plot_qc` function, the `pal_setup` argument will be useful if there 
 
 The count and proportion statistics of clustering can be plotted by function `plot_stat`:
 
-
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, split by samples", fig.height=6, fig.width=9}
+### plot_stat(scRNA_int, "group_count")
+```
