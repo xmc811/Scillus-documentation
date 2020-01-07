@@ -54,3 +54,57 @@ The default value of `pal_setup` is `NULL`, and `plot_qc` will use `"Set2"` pale
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of UMIs in each group", fig.height=3, fig.width=4}
 plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = pal)
 ```
+
+### Filtering and Integration
+
+The function `filter_scdata` is used for Seurat object subsetting. The grammar of `subset` argument is the same as `subset` function for Seurat object. A bar plot will be automatically drawn to show the number of cells before and after filtering.
+
+```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+scRNA_f <- filter_scdata(scRNA, subset = nFeature_RNA > 500 & percent.mt < 10)
+```
+```{r eval=TRUE, echo=FALSE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of cells before and after filtering", fig.height=4.5, fig.width=7}
+tmp <- filter_scdata(scRNA, subset = nFeature_RNA > 500 & percent.mt < 10)
+```
+
+The list of filtered Seurat objects `scRNA_f` will be further processed by standard Seurat pipeline:
+
+```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+scRNA_f %<>% 
+        purrr::map(.f = NormalizeData) %>%
+        purrr::map(.f = FindVariableFeatures) %>%
+        purrr::map(.f = CellCycleScoring, 
+                   s.features = cc.genes$s.genes, 
+                   g2m.features = cc.genes$g2m.genes)
+```
+
+The list of Seurat objects `scRNA_f` can be merged to one single Seurat object `scRNA_int` for integrated analysis: 
+
+```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+scRNA_int <- IntegrateData(anchorset = FindIntegrationAnchors(object.list = scRNA_f, dims = 1:30, k.filter = 50), dims = 1:30)
+```
+
+```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+scRNA_int %<>%
+        ScaleData(vars.to.regress = c("nCount_RNA", "percent.mt", "S.Score", "G2M.Score"))
+
+scRNA_int %<>%
+        RunPCA(npcs = 50, verbose = TRUE)
+
+scRNA_int %<>%
+        RunUMAP(reduction = "pca", dims = 1:20, n.neighbors = 30) %>%
+        FindNeighbors(reduction = "pca", dims = 1:20) %>%
+        FindClusters(resolution = 0.2)
+```
+
+### Factoring
+
+Factoring Seurat object metadata by `refactor_seurat` is an optional step, mainly for better plotting. The function takes the metadata `m` as argument and make the Seurat object metadata the same factor levels as those in `m`. If no `metadata` argument is provided. All the character vectors in Seurat object metadata will be factored.
+
+```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+m %<>%
+        mutate(group = factor(group, levels = c("Normal", "CTCL")))
+
+scRNA_int %<>%
+        refactor_seurat(metadata = m)
+```
+
