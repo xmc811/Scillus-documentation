@@ -29,8 +29,49 @@ Similar to `plot_qc` function, the `pal_setup` argument will be useful if there 
 
 ### Plotting statistics
 
-The count and proportion statistics of clustering can be plotted by function `plot_stat`:
+The count and proportion statistics of clustering can be plotted by function `plot_stat`, the `plot_type` argument must be provided as one of the four values: `"group_count"`, `"cluster_count"`, `"prop_fill"`, and `"prop_multi"`. Their plots are shown below:
 
-```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, split by samples", fig.height=6, fig.width=9}
-### plot_stat(scRNA_int, "group_count")
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
+plot_stat(scRNA_int, plot_type = "group_count")
 ```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
+plot_stat(scRNA_int, plot_type = "cluster_count")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
+plot_stat(scRNA_int, plot_type = "prop_fill")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=18}
+plot_stat(scRNA_int, plot_type = "prop_multi")
+```
+
+The `group_by` argument uses `"sample"` as the default grouping variable, and it can be specified as other factors in the metadata (e.g. `"group"`), when `plot_type` is `group_count`, `prop_fill`, or `prop_multi`.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
+plot_stat(scRNA_int, plot_type = "prop_fill", group_by = "group")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=18}
+plot_stat(scRNA_int, plot_type = "prop_multi", group_by = "group")
+```
+
+### Plotting heatmap
+
+The plotting of heatmap requires cluster markers to be found by Seurat:
+
+```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+markers <- FindAllMarkers(scRNA_int, logfc.threshold = 0.1, min.pct = 0, only.pos = T)
+```
+
+Then, the top genes in each cluster are plotted by `plot_heatmap`.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=12, fig.width=18}
+plot_heatmap(dataset = scRNA_int, 
+              markers = markers,
+              sort_var = c("seurat_clusters","sample"),
+              anno_var = c("seurat_clusters", "sample","percent.mt","S.Score","G2M.Score"),
+              anno_colors = c("Paired","Set2","Reds","Blues","Greens"))
+```
+
