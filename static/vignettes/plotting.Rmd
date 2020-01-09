@@ -65,7 +65,7 @@ The plotting of heatmap requires cluster markers to be found by Seurat:
 markers <- FindAllMarkers(scRNA_int, logfc.threshold = 0.1, min.pct = 0, only.pos = T)
 ```
 
-Then, the top genes in each cluster are plotted by `plot_heatmap`.
+Then, the top genes in each cluster are plotted by `plot_heatmap`. The default value of number of genes plotted in each cluster `n` is `8`. In the heatmap, each row represents a gene and each column a cell. The cells can be sorted by `sort_var` can it is set to `c('seurat_clusters', 'sample')` by default, meaning the cells are first sorted by cluster identity and then sample. The bars above the heatmap are annotation bars and can show categorical or continuous variables in the metadata by specifying the `anno_var` argument. The `anno_colors` argument specifies the annotation colors for corresponding annotation variables hence it should be the same length as `anno_var`. It is recommended that proper color palettes are used for categorical and continuous variables. Currently, only `RColorBrewer` palettes are supported.
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=12, fig.width=18}
 plot_heatmap(dataset = scRNA_int, 
@@ -73,5 +73,34 @@ plot_heatmap(dataset = scRNA_int,
               sort_var = c("seurat_clusters","sample"),
               anno_var = c("seurat_clusters", "sample","percent.mt","S.Score","G2M.Score"),
               anno_colors = c("Paired","Set2","Reds","Blues","Greens"))
+```
+
+### GO Analysis
+
+The GO analysis results can be plotted by `plot_cluster_go` and `plot_all_cluster_go`. The former plotted one specific cluster while the latter iterates all clusters. The `topn` argument in `plot_cluster_go` specifies the number of top genes for GO analysis and the default value is `100`. The `org` argument specifies the organism, and `"human"` and `"mouse"` are the accepted values. `plot_all_cluster_go` is the wrapper for `plot_cluster_go` and the latter is again a wrapper for `clusterProfilter::enrichGO`. Hence, the `...` arguments can be passed into inner functions.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=6, fig.width=12}
+plot_cluster_go(markers, cluster_name = '1', org = "human", ont = "CC")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=18}
+plot_all_cluster_go(markers, org = 'human', ont = "CC")
+```
+
+### Plotting Measures
+
+The measures are defined as continuous variables in the metadata as well as gene expression values. The `plot_measure` and `plot_measure_dim` summarize these variables as box/violin plots and dimension reduction plots, respectively.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=6, fig.width=12}
+plot_measure(dataset = scRNA_int, 
+             measures = c("KRT14","percent.mt"), 
+             group_by = "seurat_clusters", 
+             pal_setup = pal)
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=6, fig.width=12}
+plot_measure_dim(dataset = scRNA_int,
+                 split_by = "group",
+                 measures = c("KRT14","percent.mt"))
 ```
 
