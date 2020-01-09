@@ -1,7 +1,7 @@
 ---
 title: "Plotting"
 author: "Mingchu Xu"
-date: 2020-01-07
+date: 2020-01-09
 output: html_document
 ---
 
@@ -91,16 +91,33 @@ plot_all_cluster_go(markers, org = 'human', ont = "CC")
 
 The measures are defined as continuous variables in the metadata as well as gene expression values. The `plot_measure` and `plot_measure_dim` summarize these variables as box/violin plots and dimension reduction plots, respectively.
 
-```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=6, fig.width=12}
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=12}
 plot_measure(dataset = scRNA_int, 
              measures = c("KRT14","percent.mt"), 
              group_by = "seurat_clusters", 
              pal_setup = pal)
 ```
 
-```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=6, fig.width=12}
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4, fig.width=12}
 plot_measure_dim(dataset = scRNA_int,
                  split_by = "group",
                  measures = c("KRT14","percent.mt"))
 ```
 
+### GSEA Analysis
+
+To perform GSEA analysis, we will first find the differentially expressed genes (DEGs) and related measures by `find_diff_genes`. Then, the ranked list will be input for GSEA analysis by `test_GSEA`. (Note: It may take Seurat a long time to find DEGs. Parallel processing by package `future` is recommended.)
+
+```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+de <- find_diff_genes(dataset = scRNA_int, 
+                      clusters = as.character(0:6),
+                      comparison = c("group", "CTCL", "Normal"),
+                      logfc = 0)
+
+gsea_res <- test_GSEA(de, 
+                      pathway = pathways.hallmark)
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=12}
+plot_GSEA(gsea_res)
+```
