@@ -12,3 +12,5 @@ title: Home
 - [Preparation of configuration files](vignettes/configuration.html)
 - [Processing of raw data](vignettes/processing.html)
 - [Plotting](vignettes/plotting.html)
+
+Please report bugs, feature requests or other comments by [opening an issue](https://github.com/xmc811/Scillus/issues) on GitHub page. Contributions by pull requests are also welcomed.
