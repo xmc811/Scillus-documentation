@@ -1,0 +1,129 @@
+---
+title: "Plotting"
+author: "Mingchu Xu"
+date: 2020-01-28
+output: html_document
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results='asis'}
+library(tidyverse)
+library(magrittr)
+library(Scillus)
+```
+
+### Plotting dimension reductions
+
+Dimension reductions can be plotted by function `plot_scdata`:
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, colored by clusters", fig.height=4.5, fig.width=7}
+plot_scdata(scRNA_int, pal_setup = pal)
+```
+
+There are 3 optional arguments for `plot_scdata`: `color_by`, `split_by`, and `pal_setup`. As for the `color_by` argument, the function will color different `"seurat_clusters"` by default, and it can be changed to any factors in the metadata, like `"sample"` or `"group"`:
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, colored by groups", fig.height=4.5, fig.width=7}
+plot_scdata(scRNA_int, color_by = "group", pal_setup = pal)
+```
+
+If `split_by` argument is specified as a factor in the metadata, the plotting will be split by that factor:
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, split by samples", fig.height=6, fig.width=9}
+plot_scdata(scRNA_int, split_by = "sample", pal_setup = pal)
+```
+
+Similar to `plot_qc` function, the `pal_setup` argument will be useful if there is a specified palette setup to ensure consistent color scheme in different plotting functions.
+
+### Plotting statistics
+
+The count and proportion statistics of clustering can be plotted by function `plot_stat`, the `plot_type` argument must be provided as one of the four values: `"group_count"`, `"cluster_count"`, `"prop_fill"`, and `"prop_multi"`. Their plots are shown below:
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
+plot_stat(scRNA_int, plot_type = "group_count")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
+plot_stat(scRNA_int, plot_type = "cluster_count")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
+plot_stat(scRNA_int, plot_type = "prop_fill")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=18}
+plot_stat(scRNA_int, plot_type = "prop_multi")
+```
+
+The `group_by` argument uses `"sample"` as the default grouping variable, and it can be specified as other factors in the metadata (e.g. `"group"`), when `plot_type` is `group_count`, `prop_fill`, or `prop_multi`.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
+plot_stat(scRNA_int, plot_type = "prop_fill", group_by = "group")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=18}
+plot_stat(scRNA_int, plot_type = "prop_multi", group_by = "group")
+```
+
+### Plotting heatmap
+
+The plotting of heatmap requires cluster markers to be found by Seurat:
+
+```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+markers <- FindAllMarkers(scRNA_int, logfc.threshold = 0.1, min.pct = 0, only.pos = T)
+```
+
+Then, the top genes in each cluster are plotted by `plot_heatmap`. The default value of number of genes plotted in each cluster `n` is `8`. In the heatmap, each row represents a gene and each column a cell. The cells can be sorted by `sort_var` can it is set to `c('seurat_clusters', 'sample')` by default, meaning the cells are first sorted by cluster identity and then sample. The bars above the heatmap are annotation bars and can show categorical or continuous variables in the metadata by specifying the `anno_var` argument. The `anno_colors` argument specifies the annotation colors for corresponding annotation variables hence it should be the same length as `anno_var`. It is recommended that proper color palettes are used for categorical and continuous variables. Currently, only `RColorBrewer` palettes are supported.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=12, fig.width=18}
+plot_heatmap(dataset = scRNA_int, 
+              markers = markers,
+              sort_var = c("seurat_clusters","sample"),
+              anno_var = c("seurat_clusters", "sample","percent.mt","S.Score","G2M.Score"),
+              anno_colors = c("Paired","Set2","Reds","Blues","Greens"))
+```
+
+### GO Analysis
+
+The GO analysis results can be plotted by `plot_cluster_go` and `plot_all_cluster_go`. The former plotted one specific cluster while the latter iterates all clusters. The `topn` argument in `plot_cluster_go` specifies the number of top genes for GO analysis and the default value is `100`. The `org` argument specifies the organism, and `"human"` and `"mouse"` are the accepted values. `plot_all_cluster_go` is the wrapper for `plot_cluster_go` and the latter is again a wrapper for `clusterProfilter::enrichGO`. Hence, the `...` arguments can be passed into inner functions.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=6, fig.width=12}
+plot_cluster_go(markers, cluster_name = '1', org = "human", ont = "CC")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=18}
+plot_all_cluster_go(markers, org = 'human', ont = "CC")
+```
+
+### Plotting Measures
+
+The measures are defined as continuous variables in the metadata as well as gene expression values. The `plot_measure` and `plot_measure_dim` summarize these variables as box/violin plots and dimension reduction plots, respectively.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=12}
+plot_measure(dataset = scRNA_int, 
+             measures = c("KRT14","percent.mt"), 
+             group_by = "seurat_clusters", 
+             pal_setup = pal)
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4, fig.width=12}
+plot_measure_dim(dataset = scRNA_int,
+                 split_by = "group",
+                 measures = c("KRT14","percent.mt"))
+```
+
+### GSEA Analysis
+
+To perform GSEA analysis, we will first find the differentially expressed genes (DEGs) and related measures by `find_diff_genes`. Then, the ranked list will be input for GSEA analysis by `test_GSEA`. (Note: It may take Seurat a long time to find DEGs. Parallel processing by package `future` is recommended.)
+
+```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
+de <- find_diff_genes(dataset = scRNA_int, 
+                      clusters = as.character(0:6),
+                      comparison = c("group", "CTCL", "Normal"),
+                      logfc = 0)
+
+gsea_res <- test_GSEA(de, 
+                      pathway = pathways.hallmark)
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=12}
+plot_GSEA(gsea_res)
+```
