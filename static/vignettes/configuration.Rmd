@@ -2,7 +2,7 @@
 draft: no
 title: Initial Setup
 author: Mingchu Xu
-date: '2019-12-23'
+date: '2020-09-23'
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results='asis'}
@@ -31,17 +31,19 @@ filtered_feature_bc_matrix
 Given the fact that the sample sizes for each scRNA-seq project are usually more than one, the loading and filtering functions of Scillus will generate and process a list of Seurat objects. A metadata dataframe should be provided to the loading function. The dataframe should have at least two columns: one named `sample`, and the other named `file` or `folder`, depending on the input data format. For the sample data, metadata can be constructed by:
 
 ```{r echo=TRUE, eval=FALSE}
+library(tidyverse)
+
 a <- list.files("your/path/to/sample/data/GSE128531_RAW", full.names = TRUE)
-m <- tibble::tibble(file = a, 
-                    sample = stringr::str_remove(basename(a), ".csv.gz"),
-                    group = rep(c("CTCL", "Normal"), each = 3))
+m <- tibble(file = a, 
+            sample = stringr::str_remove(basename(a), ".csv.gz"),
+            group = rep(c("CTCL", "Normal"), each = 3))
 ```
 
 ```{r echo=FALSE, results='asis'}
 a <- list.files("~/Documents/projects/Scillus/test/GSE128531_RAW", full.names = TRUE)
-m <- tibble::tibble(file = a, 
-                    sample = stringr::str_remove(basename(a), ".csv.gz"),
-                    group = rep(c("CTCL", "Normal"), each = 3))
+m <- tibble(file = a, 
+            sample = stringr::str_remove(basename(a), ".csv.gz"),
+            group = rep(c("CTCL", "Normal"), each = 3))
 kable(m, format = "html", caption = "Table 1. Metadata of sample data") %>%
         kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
                       full_width = FALSE)
@@ -69,8 +71,8 @@ kable(m1, caption = "Table 2. Metadata for 10x Genomics cellranger output") %>%
 The plotting functions of Scillus will incorperate palette setup to ensure consistent coloring schemes for each variable in different types of plots.
 
 ```{r echo=TRUE}
-pal <- tibble::tibble(var = c("sample", "group","seurat_clusters"),
-                      pal = c("Set2","Set1","Paired"))
+pal <- tibble(var = c("sample", "group","seurat_clusters"),
+              pal = c("Set2","Set1","Paired"))
 ```
 
 ```{r echo=FALSE, paged.print=TRUE, results='asis'}

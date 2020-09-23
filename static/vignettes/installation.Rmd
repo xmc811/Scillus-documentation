@@ -2,16 +2,17 @@
 draft: no
 title: Installation
 author: Mingchu Xu
-date: '2019-12-23'
+date: '2020-09-23'
 ---
 
 Scillus is still undergoing active development. Please use the following code to install the development branch on GitHub:
 
 ```{r install, echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
-install.packages("devtools")
-library(devtools)
+if (!require(devtools)) {
+  install.packages("devtools")
+}
 
-install_github("xmc811/Scillus", ref = "development")
+devtools::install_github("xmc811/Scillus", ref = "development")
 library(Scillus)
 ```
 

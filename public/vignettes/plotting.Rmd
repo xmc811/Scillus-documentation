@@ -5,12 +5,6 @@ date: 2020-01-28
 output: html_document
 ---
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results='asis'}
-library(tidyverse)
-library(magrittr)
-library(Scillus)
-```
-
 ### Plotting dimension reductions
 
 Dimension reductions can be plotted by function `plot_scdata`:
@@ -104,10 +98,15 @@ plot_measure(dataset = scRNA_int,
              pal_setup = pal)
 ```
 
-```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4, fig.width=12}
-plot_measure_dim(dataset = scRNA_int,
-                 split_by = "group",
-                 measures = c("KRT14","percent.mt"))
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=10.5, fig.width=12}
+plot_measure_dim(dataset = scRNA_int, 
+                 measures = c("nFeature_RNA","nCount_RNA","percent.mt","KRT14"))
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8.8, fig.width=12}
+plot_measure_dim(dataset = scRNA_int, 
+                 measures = c("nFeature_RNA","nCount_RNA","percent.mt","KRT14"),
+                 split_by = "sample")
 ```
 
 ### GSEA Analysis

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Mingchu Xu" />
 
-<meta name="date" content="2019-12-23" />
+<meta name="date" content="2020-09-23" />
 
 <title>Installation</title>
 
@@ -365,16 +365,17 @@ summary {
 
 <h1 class="title toc-ignore">Installation</h1>
 <h4 class="author">Mingchu Xu</h4>
-<h4 class="date">2019-12-23</h4>
+<h4 class="date">2020-09-23</h4>
 
 </div>
 
 
 <p>Scillus is still undergoing active development. Please use the following code to install the development branch on GitHub:</p>
-<pre class="r"><code>install.packages(&quot;devtools&quot;)
-library(devtools)
+<pre class="r"><code>if (!require(devtools)) {
+  install.packages(&quot;devtools&quot;)
+}
 
-install_github(&quot;xmc811/Scillus&quot;, ref = &quot;development&quot;)
+devtools::install_github(&quot;xmc811/Scillus&quot;, ref = &quot;development&quot;)
 library(Scillus)</code></pre>
 <p>Note:</p>
 <p>Errors may occur during the installation of dependency packages. Usually it can be solved by re-installing the relevant packages.</p>
