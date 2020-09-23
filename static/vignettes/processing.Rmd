@@ -66,6 +66,7 @@ scRNA_f <- filter_scdata(scRNA, subset = nFeature_RNA > 500 & percent.mt < 10)
 ```
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of cells before and after filtering", fig.height=4.5, fig.width=7}
 tmp <- filter_scdata(scRNA, subset = nFeature_RNA > 500 & percent.mt < 10)
+rm(tmp)
 ```
 
 The list of filtered Seurat objects `scRNA_f` will be further processed by standard Seurat pipeline:
