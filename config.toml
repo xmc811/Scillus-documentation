@@ -13,4 +13,4 @@ footnotereturnlinkcontents = "↩"
 
 [params]
     description = "A minimal example of building Rmd files under the static/ directory of a website based on blogdown and Hugo."
-    footer = "&copy; [Mingchu Xu](https://github.com/xmc811) 2020 | [Github](https://github.com/xmc811/Scillus) "
+    footer = "&copy; [Mingchu Xu](https://github.com/xmc811) 2019 - 2021 | [Github](https://github.com/xmc811/Scillus) "

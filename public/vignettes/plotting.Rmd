@@ -13,48 +13,57 @@ Dimension reductions can be plotted by function `plot_scdata()`:
 plot_scdata(scRNA_int, pal_setup = pal)
 ```
 
-There are 3 optional arguments for `plot_scdata()`: `color_by`, `split_by`, and `pal_setup`. As for the `color_by` argument, the function will color different `"seurat_clusters"` by default, and it can be changed to any factors in the metadata, like `"sample"` or `"group"`:
+There are three optional parameters for `plot_scdata()`: `color_by`, `split_by`, and `pal_setup`. As for the `color_by` parameter, the function will color different `"seurat_clusters"` by default, and it can be changed to any factors in the metadata, like `"sample"` or `"group"`:
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, colored by groups", fig.height=4.5, fig.width=7}
 plot_scdata(scRNA_int, color_by = "group", pal_setup = pal)
 ```
 
-If `split_by` argument is specified as a factor in the metadata, the plotting will be split by that factor:
+If `split_by` parameter is specified as a factor in the metadata, the plotting will be split by that factor:
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, split by samples", fig.height=6, fig.width=9}
 plot_scdata(scRNA_int, split_by = "sample", pal_setup = pal)
 ```
 
-Similar to `plot_qc()` function, the `pal_setup` argument will be useful if there is a specified palette setup to ensure consistent color scheme in different plotting functions.
+Similar to the `plot_qc()` function, the `pal_setup` parameter can be `RColorBrewer` palette names, palette setup dataframe, or manually specified color vector.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, colored by clusters, RColorBrewer Dark2 palette", fig.height=4.5, fig.width=7}
+plot_scdata(scRNA_int, pal_setup = "Dark2")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, colored by clusters, mannually specified palette", fig.height=4.5, fig.width=7}
+plot_scdata(scRNA_int, color_by = "sample", pal_setup = c("red","orange","yellow","green","blue","purple"))
+```
 
 ### Plotting statistics
 
-The count and proportion statistics of clustering can be plotted by function `plot_stat`, the `plot_type` argument must be provided as one of the four values: `"group_count"`, `"cluster_count"`, `"prop_fill"`, and `"prop_multi"`. Their plots are shown below:
+The count and proportion statistics of clustering can be plotted by function `plot_stat()`, the `plot_type` parameter must be provided as one of the three values: `"group_count"`, `"prop_fill"`, and `"prop_multi"`. Their plots are shown below:
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
 plot_stat(scRNA_int, plot_type = "group_count")
 ```
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
-plot_stat(scRNA_int, plot_type = "cluster_count")
+plot_stat(scRNA_int, "group_count", group_by = "seurat_clusters", pal_setup = pal)
 ```
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
-plot_stat(scRNA_int, plot_type = "prop_fill")
+plot_stat(scRNA_int, plot_type = "prop_fill", 
+          pal_setup = c("grey90","grey80","grey70","grey60","grey50","grey40","grey30","grey20"))
 ```
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=18}
-plot_stat(scRNA_int, plot_type = "prop_multi")
+plot_stat(scRNA_int, plot_type = "prop_multi", pal_setup = "Set3")
 ```
 
-The `group_by` argument uses `"sample"` as the default grouping variable, and it can be specified as other factors in the metadata (e.g. `"group"`), when `plot_type` is `group_count`, `prop_fill`, or `prop_multi`.
+The `group_by` parameter uses `"sample"` as the default grouping variable, and it can be specified as other factors in the metadata (e.g. `"group"`).
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=8}
 plot_stat(scRNA_int, plot_type = "prop_fill", group_by = "group")
 ```
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=18}
-plot_stat(scRNA_int, plot_type = "prop_multi", group_by = "group")
+plot_stat(scRNA_int, plot_type = "prop_multi", group_by = "group", pal_setup = c("sienna","bisque3"))
 ```
 
 ### Plotting heatmap
@@ -65,31 +74,51 @@ The plotting of heatmap requires cluster markers to be found by Seurat:
 markers <- FindAllMarkers(scRNA_int, logfc.threshold = 0.1, min.pct = 0, only.pos = T)
 ```
 
-Then, the top genes in each cluster are plotted by `plot_heatmap`. The default value of number of genes plotted in each cluster `n` is `8`. In the heatmap, each row represents a gene and each column a cell. The cells can be sorted by `sort_var` can it is set to `c('seurat_clusters', 'sample')` by default, meaning the cells are first sorted by cluster identity and then sample. The bars above the heatmap are annotation bars and can show categorical or continuous variables in the metadata by specifying the `anno_var` argument. The `anno_colors` argument specifies the annotation colors for corresponding annotation variables hence it should be the same length as `anno_var`. It is recommended that proper color palettes are used for categorical and continuous variables. Currently, only `RColorBrewer` palettes are supported.
+Then, the top genes in each cluster are plotted by `plot_heatmap()`. The default value of number of genes plotted in each cluster `n` is `8`. In the heatmap, each row represents a gene and each column a cell. The cells can be sorted by `sort_var` can it is set to `c("seurat_clusters")` by default, meaning the cells are  sorted by cluster identity. Multiple variables can be specified in `sort_var` and the cells will be sorted by the order of the variables. The bars above the heatmap are annotation bars and can show categorical or continuous variables in the metadata by specifying the `anno_var` parameter, with variable names as a character vector. The `anno_colors` parameter is a list that specifies the annotation colors for corresponding annotation variables hence it should be the same length as `anno_var`. It is recommended that proper color palettes are used for categorical and continuous variables. As before, `RColorBrewer` palettes and manually specified palettes are supported, and a three-color vector can be used for continuous variable annotation.
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=12, fig.width=18}
 plot_heatmap(dataset = scRNA_int, 
               markers = markers,
               sort_var = c("seurat_clusters","sample"),
-              anno_var = c("seurat_clusters", "sample","percent.mt","S.Score","G2M.Score"),
-              anno_colors = c("Paired","Set2","Reds","Blues","Greens"))
+              anno_var = c("seurat_clusters","sample","percent.mt","S.Score","G2M.Score"),
+              anno_colors = list("Set2",                                             # RColorBrewer palette
+                                 c("red","orange","yellow","purple","blue","green"), # color vector
+                                 "Reds",
+                                 c("blue","white","red"),                            # Three-color gradient
+                                 "Greens"))
 ```
+
+Furthermore, `hm_limit` and `hm_colors` are used to specify the color gradient and limits of the main heatmap tiles.
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=12, fig.width=18}
+plot_heatmap(dataset = scRNA_int,
+             n = 6,
+             markers = markers,
+             sort_var = c("seurat_clusters","sample"),
+             anno_var = c("seurat_clusters","sample","percent.mt"),
+             anno_colors = list("Set2",
+                                c("red","orange","yellow","purple","blue","green"),
+                                "Reds"),
+             hm_limit = c(-1,0,1),
+             hm_colors = c("purple","black","yellow"))
+```
+
 
 ### GO Analysis
 
-The GO analysis results can be plotted by `plot_cluster_go` and `plot_all_cluster_go`. The former plotted one specific cluster while the latter iterates all clusters. The `topn` argument in `plot_cluster_go` specifies the number of top genes for GO analysis and the default value is `100`. The `org` argument specifies the organism, and `"human"` and `"mouse"` are the accepted values. `plot_all_cluster_go` is the wrapper for `plot_cluster_go` and the latter is again a wrapper for `clusterProfilter::enrichGO`. Hence, the `...` arguments can be passed into inner functions.
+The GO analysis results can be plotted by `plot_cluster_go()` and `plot_all_cluster_go()`. The former plotted one specific cluster while the latter iterates all clusters. The `topn` parameter in `plot_cluster_go()` specifies the number of top genes for GO analysis and the default value is `100`. The `org` parameter specifies the organism, and `"human"` and `"mouse"` are the accepted values. `plot_all_cluster_go()` is the wrapper for `plot_cluster_go()` and the latter is again a wrapper for `clusterProfilter::enrichGO()`. Hence, the `...` parameters can be passed into inner functions.
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=6, fig.width=12}
-plot_cluster_go(markers, cluster_name = '1', org = "human", ont = "CC")
+plot_cluster_go(markers, cluster_name = "1", org = "human", ont = "CC")
 ```
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=18}
-plot_all_cluster_go(markers, org = 'human', ont = "CC")
+plot_all_cluster_go(markers, org = "human", ont = "CC")
 ```
 
 ### Plotting Measures
 
-The measures are defined as continuous variables in the metadata as well as gene expression values. The `plot_measure` and `plot_measure_dim` summarize these variables as box/violin plots and dimension reduction plots, respectively.
+The measures are defined as continuous variables in the metadata as well as gene expression values. The `plot_measure()` and `plot_measure_dim()` summarize these variables as box/violin plots and dimension reduction plots, respectively. Parameters like `group_by`, `split_by`, and `pal_setup` can be used similarly as described above.
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=4.5, fig.width=12}
 plot_measure(dataset = scRNA_int, 
@@ -111,18 +140,19 @@ plot_measure_dim(dataset = scRNA_int,
 
 ### GSEA Analysis
 
-To perform GSEA analysis, we will first find the differentially expressed genes (DEGs) and related measures by `find_diff_genes`. Then, the ranked list will be input for GSEA analysis by `test_GSEA`. (Note: It may take Seurat a long time to find DEGs. Parallel processing by package `future` is recommended.)
+To perform GSEA analysis, we will first find the differentially expressed genes (DEGs) and related measures by `find_diff_genes()`. Then, the ranked list will be input for GSEA analysis by `test_GSEA()`. (Note: It may take Seurat a long time to find DEGs. Parallel processing by package `future` is recommended.). Finally, the output can be plotted by `plot_GSEA()`, with additional parameters provided for adjusted p-value cutoff and color gradients.
 
 ```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
 de <- find_diff_genes(dataset = scRNA_int, 
-                      clusters = as.character(0:6),
+                      clusters = as.character(0:7),
                       comparison = c("group", "CTCL", "Normal"),
-                      logfc = 0)
+                      logfc.threshold = 0,   # threshold of 0 is used for GSEA
+                      min.cells.group = 1)   # To include clusters with only 1 cell
 
 gsea_res <- test_GSEA(de, 
                       pathway = pathways.hallmark)
 ```
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.height=8, fig.width=12}
-plot_GSEA(gsea_res)
+plot_GSEA(gsea_res, p_cutoff = 0.1, colors = c("#0570b0", "grey", "#d7301f"))
 ```

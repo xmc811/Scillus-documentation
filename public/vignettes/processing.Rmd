@@ -42,7 +42,7 @@ plot_qc(scRNA, metrics = "nFeature_RNA")
 plot_qc(scRNA, metrics = "nCount_RNA")
 ```
 
-There are 3 optional arguments for `plot_qc()`: `plot_type`, `group_by`, and `pal_setup`.
+There are 3 optional parameters for `plot_qc()`: `plot_type`, `group_by`, and `pal_setup`.
 
 The default value of `plot_type` is `"combined"`, meaning both box plot and violin plot are drawn. If only one of the two plots is preferred, it can be set as `"box"` or `"violin"`.
 
@@ -63,7 +63,7 @@ The default value of `group_by` is `"sample"`, which corresponds to the `sample`
 plot_qc(scRNA, metrics = "percent.mt", group_by = "group")
 ```
 
-The parameter `pal_setup` supports three types of inputs: `RColorBrewer` palette name, palette setup dataframe (See [Initial Setup](configuration.html), the last section), and manually specified color vector. The default value is the palette `"Set2"`. Currently, only `RColorBrewer` palettes are supported.
+The parameter `pal_setup` supports three types of inputs: `RColorBrewer` palette name, palette setup dataframe (See [Initial Setup](configuration.html), the last section), and manually specified color vector. The default value is the palette `"Set2"`.
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondrial read percentage in each group (RColorBrewer palette name as palette input)", fig.height=3, fig.width=4}
 plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = "Accent")
@@ -73,14 +73,14 @@ plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = "Accent")
 plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = pal)
 ```
 
-```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondrial read percentage in each group (Configured dataframe as palette input)", fig.height=3, fig.width=4}
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondrial read percentage in each group (Manually specified colors as palette input)", fig.height=3, fig.width=4}
 plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = c("purple","yellow"))
 ```
 
 
 ### Filtering and Integration
 
-The function `filter_scdata()` is used for Seurat object subsetting. The grammar of `subset` argument is the same as `subset` function for Seurat object. A bar plot will be automatically drawn to show the number of cells before and after filtering.
+The function `filter_scdata()` is used for Seurat object subsetting. The grammar of `subset` parameter is the same as `subset()` function for Seurat object. A bar plot will be automatically drawn to show the number of cells before and after filtering.
 
 ```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
 scRNA_f <- filter_scdata(scRNA, subset = nFeature_RNA > 500 & percent.mt < 10)
@@ -122,7 +122,7 @@ scRNA_int %<>%
 
 ### Factoring
 
-Factoring Seurat object metadata by `refactor_seurat()` is an optional step, mainly for better plotting. The function takes the metadata `m` as argument and make the Seurat object metadata the same factor levels as those in `m`. If no `metadata` argument is provided. All the character vectors in Seurat object metadata will be factored.
+Factoring Seurat object metadata by `refactor_seurat()` is an optional step, mainly for better plotting. The function takes the metadata `m` as argument and make the Seurat object metadata the same factor levels as those in `m`. If no `metadata` parameter is provided. All the character vectors in Seurat object metadata will be factored.
 
 ```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
 m %<>%
