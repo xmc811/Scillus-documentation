@@ -2,6 +2,7 @@
 title: "Data Processing"
 author: "Mingchu Xu"
 date: 2021-04-17
+
 output: html_document
 ---
 
@@ -18,7 +19,7 @@ library(magrittr)
 scRNA <- load_scfile(m)
 ```
 
-Scillus will create `Seurat` object for each sample and automatically call `PercentageFeatureSet` function to calculate the mitochondrial gene percentage. The resulting `scRNA` is a list of multiple Seurat objects. Its length equals to number of rows of metadata `m`:
+Scillus will create `Seurat` object for each sample and automatically call `PercentageFeatureSet()` function to calculate the mitochondrial gene percentage. The resulting `scRNA` is a list of multiple Seurat objects. Its length equals to number of rows of metadata `m`:
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
 length(scRNA)
@@ -26,7 +27,8 @@ length(scRNA)
 
 ### Plotting QC Measures
 
-The QC Measures can be plotted by `plot_qc`. The resulting plot can be further customized (axis.title, theme, etc.) using ggplot grammar.
+The QC Measures can be plotted by `plot_qc()`. The resulting plot can be further customized (axis.title, theme, etc.) using ggplot grammar.
+
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondria gene percentage in each sample", fig.height=3, fig.width=6}
 plot_qc(scRNA, metrics = "percent.mt")
@@ -40,7 +42,7 @@ plot_qc(scRNA, metrics = "nFeature_RNA")
 plot_qc(scRNA, metrics = "nCount_RNA")
 ```
 
-There are 3 optional arguments for `plot_qc`: `plot_type`, `group_by`, and `pal_setup`.
+There are 3 optional arguments for `plot_qc()`: `plot_type`, `group_by`, and `pal_setup`.
 
 The default value of `plot_type` is `"combined"`, meaning both box plot and violin plot are drawn. If only one of the two plots is preferred, it can be set as `"box"` or `"violin"`.
 
@@ -85,6 +87,7 @@ scRNA_f <- filter_scdata(scRNA, subset = nFeature_RNA > 500 & percent.mt < 10)
 ```
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of cells before and after filtering", fig.height=4.5, fig.width=7}
 tmp <- filter_scdata(scRNA, subset = nFeature_RNA > 500 & percent.mt < 10)
+rm(tmp)
 ```
 
 The list of filtered Seurat objects `scRNA_f` will be further processed by standard Seurat pipeline:
