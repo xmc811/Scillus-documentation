@@ -1,11 +1,8 @@
 ---
 title: "Data Processing"
 author: "Mingchu Xu"
-<<<<<<< HEAD
 date: 2021-04-17
-=======
-date: 2020-09-23
->>>>>>> c5c815c28b417bdc50e4543f8ed7c28bc7b03f85
+
 output: html_document
 ---
 
@@ -14,14 +11,10 @@ output: html_document
 To load scRNA-seq raw data:
 
 ```{r echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', eval=FALSE}
-<<<<<<< HEAD
 library(Scillus)
 library(tidyverse)
 library(Seurat)
 library(magrittr)
-=======
-library(Seurat)
->>>>>>> c5c815c28b417bdc50e4543f8ed7c28bc7b03f85
 
 scRNA <- load_scfile(m)
 ```
@@ -34,11 +27,8 @@ length(scRNA)
 
 ### Plotting QC Measures
 
-<<<<<<< HEAD
-The QC Measures can be plotted by `plot_qc`. The resulting plot can be further customized (axis.title, theme, etc.) using ggplot grammar.
-=======
-The QC Measures can be plotted by `plot_qc()`. The resulting plot can be further customized (axis.title, theme, etc.) using ggplot grammer.
->>>>>>> c5c815c28b417bdc50e4543f8ed7c28bc7b03f85
+The QC Measures can be plotted by `plot_qc()`. The resulting plot can be further customized (axis.title, theme, etc.) using ggplot grammar.
+
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondria gene percentage in each sample", fig.height=3, fig.width=6}
 plot_qc(scRNA, metrics = "percent.mt")

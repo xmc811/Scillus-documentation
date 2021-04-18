@@ -68,7 +68,7 @@ kable(m1, caption = "Table 2. Metadata for 10x Genomics cellranger output") %>%
 
 ### Palette setup
 
-The plotting functions of Scillus will incorperate palette setup to ensure consistent coloring schemes for each variable in different types of plots.
+The plotting functions of Scillus will incorporate palette setup to ensure consistent coloring schemes for each variable in different types of plots.
 
 ```{r echo=TRUE}
 pal <- tibble(var = c("sample", "group","seurat_clusters"),
