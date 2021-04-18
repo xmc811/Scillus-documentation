@@ -1,7 +1,7 @@
 ---
 title: "Data Processing"
 author: "Mingchu Xu"
-date: 2020-01-07
+date: 2021-04-17
 output: html_document
 ---
 
@@ -10,6 +10,11 @@ output: html_document
 To load scRNA-seq raw data:
 
 ```{r echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', eval=FALSE}
+library(Scillus)
+library(tidyverse)
+library(Seurat)
+library(magrittr)
+
 scRNA <- load_scfile(m)
 ```
 
@@ -21,7 +26,7 @@ length(scRNA)
 
 ### Plotting QC Measures
 
-The QC Measures can be plotted by `plot_qc`. The resulting plot can be further customized (axis.title, theme, etc.) using ggplot grammer.
+The QC Measures can be plotted by `plot_qc`. The resulting plot can be further customized (axis.title, theme, etc.) using ggplot grammar.
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondria gene percentage in each sample", fig.height=3, fig.width=6}
 plot_qc(scRNA, metrics = "percent.mt")
@@ -39,21 +44,37 @@ There are 3 optional arguments for `plot_qc`: `plot_type`, `group_by`, and `pal_
 
 The default value of `plot_type` is `"combined"`, meaning both box plot and violin plot are drawn. If only one of the two plots is preferred, it can be set as `"box"` or `"violin"`.
 
-```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of UMIs in each sample (Box plot)", fig.height=3, fig.width=6}
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondria gene percentage in each sample (Box plot)", fig.height=3, fig.width=6}
 plot_qc(scRNA, metrics = "percent.mt", plot_type = "box")
 ```
 
-The default value of `group_by` is `"sample"`, which corresponds to the `sample` column in the metadata `m`. Since additional metadata are included in the loading process, QC measures can also be plotted by those addtional factors, like `"group"` (which corresponds to `group` column in the metadata `m`).
+`"density"` is used to draw density plot. Notice that additional ggplot grammar (log transformation here) can be added.
+
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of UMIs in each sample (Density plot, log10 transformed)", fig.height=3, fig.width=6}
+plot_qc(scRNA, metrics = "nCount_RNA", plot_type = "density") + scale_x_log10()
+```
+
+The default value of `group_by` is `"sample"`, which corresponds to the `sample` column in the metadata `m`. Since additional metadata are included in the loading process, QC measures can also be plotted by those additional factors, like `"group"` (which corresponds to `group` column in the metadata `m`).
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of UMIs in each group", fig.height=3, fig.width=4}
 plot_qc(scRNA, metrics = "percent.mt", group_by = "group")
 ```
 
-The default value of `pal_setup` is `NULL`, and `plot_qc` will use `"Set2"` palette in `RColorBrewer` as default for plotting. If a palette setup table (See [Initial Setup](configuration.html), the last section) is passed to `pal_setup`, `plot_qc` will use the specified palette. Currently, only `RColorBrewer` palettes are supported.
+The parameter `pal_setup` supports three types of inputs: `RColorBrewer` palette name, palette setup dataframe (See [Initial Setup](configuration.html), the last section), and manually specified color vector. The default value is the palette `"Set2"`. Currently, only `RColorBrewer` palettes are supported.
 
-```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Number of UMIs in each group", fig.height=3, fig.width=4}
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondrial read percentage in each group (RColorBrewer palette name as palette input)", fig.height=3, fig.width=4}
+plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = "Accent")
+```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondrial read percentage in each group (Configured dataframe as palette input)", fig.height=3, fig.width=4}
 plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = pal)
 ```
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="Mitochondrial read percentage in each group (Configured dataframe as palette input)", fig.height=3, fig.width=4}
+plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = c("purple","yellow"))
+```
+
 
 ### Filtering and Integration
 
@@ -93,7 +114,7 @@ scRNA_int %<>%
 scRNA_int %<>%
         RunUMAP(reduction = "pca", dims = 1:20, n.neighbors = 30) %>%
         FindNeighbors(reduction = "pca", dims = 1:20) %>%
-        FindClusters(resolution = 0.2)
+        FindClusters(resolution = 0.3)
 ```
 
 ### Factoring
