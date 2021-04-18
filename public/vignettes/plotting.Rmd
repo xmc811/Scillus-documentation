@@ -7,13 +7,13 @@ output: html_document
 
 ### Plotting dimension reductions
 
-Dimension reductions can be plotted by function `plot_scdata`:
+Dimension reductions can be plotted by function `plot_scdata()`:
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, colored by clusters", fig.height=4.5, fig.width=7}
 plot_scdata(scRNA_int, pal_setup = pal)
 ```
 
-There are 3 optional arguments for `plot_scdata`: `color_by`, `split_by`, and `pal_setup`. As for the `color_by` argument, the function will color different `"seurat_clusters"` by default, and it can be changed to any factors in the metadata, like `"sample"` or `"group"`:
+There are 3 optional arguments for `plot_scdata()`: `color_by`, `split_by`, and `pal_setup`. As for the `color_by` argument, the function will color different `"seurat_clusters"` by default, and it can be changed to any factors in the metadata, like `"sample"` or `"group"`:
 
 ```{r eval=TRUE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis', fig.align='center', fig.cap="UMAP plotting, colored by groups", fig.height=4.5, fig.width=7}
 plot_scdata(scRNA_int, color_by = "group", pal_setup = pal)
@@ -25,7 +25,7 @@ If `split_by` argument is specified as a factor in the metadata, the plotting wi
 plot_scdata(scRNA_int, split_by = "sample", pal_setup = pal)
 ```
 
-Similar to `plot_qc` function, the `pal_setup` argument will be useful if there is a specified palette setup to ensure consistent color scheme in different plotting functions.
+Similar to `plot_qc()` function, the `pal_setup` argument will be useful if there is a specified palette setup to ensure consistent color scheme in different plotting functions.
 
 ### Plotting statistics
 

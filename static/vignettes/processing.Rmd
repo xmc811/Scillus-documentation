@@ -80,7 +80,7 @@ plot_qc(scRNA, metrics = "percent.mt", group_by = "group", pal_setup = c("purple
 
 ### Filtering and Integration
 
-The function `filter_scdata` is used for Seurat object subsetting. The grammar of `subset` argument is the same as `subset` function for Seurat object. A bar plot will be automatically drawn to show the number of cells before and after filtering.
+The function `filter_scdata()` is used for Seurat object subsetting. The grammar of `subset` argument is the same as `subset` function for Seurat object. A bar plot will be automatically drawn to show the number of cells before and after filtering.
 
 ```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
 scRNA_f <- filter_scdata(scRNA, subset = nFeature_RNA > 500 & percent.mt < 10)
@@ -122,7 +122,7 @@ scRNA_int %<>%
 
 ### Factoring
 
-Factoring Seurat object metadata by `refactor_seurat` is an optional step, mainly for better plotting. The function takes the metadata `m` as argument and make the Seurat object metadata the same factor levels as those in `m`. If no `metadata` argument is provided. All the character vectors in Seurat object metadata will be factored.
+Factoring Seurat object metadata by `refactor_seurat()` is an optional step, mainly for better plotting. The function takes the metadata `m` as argument and make the Seurat object metadata the same factor levels as those in `m`. If no `metadata` argument is provided. All the character vectors in Seurat object metadata will be factored.
 
 ```{r eval=FALSE, echo=TRUE, warning=FALSE, paged.print=TRUE, results='asis'}
 m %<>%
